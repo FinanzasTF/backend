@@ -6,13 +6,13 @@ import com.back.finanzas_back.domain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("user")
 @AllArgsConstructor
 public class UserController {
@@ -20,7 +20,6 @@ public class UserController {
 
     @PostMapping
     public User save(@RequestBody User resource) {
-        resource.setPassword(new BCryptPasswordEncoder().encode(resource.getPassword()));
         return activityService.save( resource);
     }
 
@@ -29,23 +28,18 @@ public class UserController {
         return activityService.getAll();
     }
 
-    @GetMapping("validation/{id}")
+    @GetMapping("{id}")
     public User getById(@PathVariable Integer id) {
         return activityService.getById(id).get();
     }
 
-//    @GetMapping("validation/{email}/{password}")
-//    public User validation(@PathVariable String email, @PathVariable String password) {
-//        return activityService.validation(email,password).get();
-//    }
+
 @GetMapping("validation/{email}/{password}")
 public ResponseEntity<?> validation(@PathVariable String email, @PathVariable String password) {
     Optional<User> userOptional = activityService.validation(email, password);
 
     if (userOptional.isPresent()) {
         User user = userOptional.get();
-        // Realizar operaciones con el usuario encontrado
-        // ...
         return ResponseEntity.ok(user);
     } else {
         return ResponseEntity.notFound().build();

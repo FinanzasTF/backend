@@ -39,3 +39,4 @@ public class User {
     @Column(name = "phone_number", length = 9, nullable = false)
     private String phoneNumber;
 }
+
