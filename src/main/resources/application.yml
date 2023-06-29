@@ -22,9 +22,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     #    JDBC : SGDB :// HOST : PORT / DB
-    url: jdbc:postgresql://localhost:5432/go2climb
+    url: jdbc:postgresql://containers-us-west-13.railway.app:5917/railway
     username: postgres
-    password: admin
+    password: GfK6FE3LPNYuq6LaTpHL
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
